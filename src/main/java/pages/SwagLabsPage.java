@@ -14,4 +14,13 @@ public class SwagLabsPage {
     public SwagLabsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
+    public String getDashboardTitle() {
+        return swagLabsDiv.getText();
+    }
+    public boolean hasShopContent() {
+        return inventoryContainer != null;
+    }
+    public String getPageTitle() {
+        return this.getPageTitle();
+    }
 }

@@ -25,10 +25,15 @@ public class LoginPage {
         enterPassword(user.getPassword());
         submitButton.click();
     }
+    public void enterLoginClearPassword(User user) {
+        enterUsername(user.getUsername());
+        enterAndClearPassword(user.getPassword());
+        submitButton.click();
+    }
     public String getErrorMessage() {
         if(errorMessage == null) {
             Log.getInstance().error("could not locate error message web element");
-            return STR."\{DataLoader.loadProperty("default_error_message")} error message";
+            return DataLoader.loadProperty("default_error_message") + " error message";
         }
         return errorMessage.getText();
     }
@@ -45,7 +50,7 @@ public class LoginPage {
     }
     private void enterPassword(String data) {
         if(data == null) {
-            Log.getInstance().warn("enterPassword: entered username is null");
+            Log.getInstance().warn("enterPassword: entered password is null");
             return;
         }
         if(password == null) {
@@ -53,5 +58,17 @@ public class LoginPage {
             return;
         }
         password.sendKeys(data);
+    }
+    private void enterAndClearPassword(String data) {
+        if(data == null) {
+            Log.getInstance().warn("enterPassword: entered password is null");
+            return;
+        }
+        if(password == null) {
+            Log.getInstance().error("could not locate password web element");
+            return;
+        }
+        password.sendKeys(data);
+        password.clear();
     }
 }

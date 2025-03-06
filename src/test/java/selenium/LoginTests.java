@@ -8,11 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
+import pages.SwagLabsPage;
 import utils.DataLoader;
 import utils.Log;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.is;
 
 class LoginTests {
     private static final ThreadLocal<WebDriver> driver;
@@ -40,10 +42,40 @@ class LoginTests {
         String actual = loginPage.getErrorMessage();
         String expected = DataLoader.loadProperty("empty_error");
         if(expected == null) {
-            Log.getInstance().error("Could not complete the test, expected value is null");
+            Log.getInstance().error("Could not complete the test, expected value is null" + " testLoginWithEmptyCredentials");
             return;
         }
         assertThat(actual, equalToIgnoringCase(expected));
     }
+    @Test
+    void testLoginPassingOnlyUsername() {
+        loginPage.enterLoginClearPassword(UserFactory.validUser());
+        String actual = loginPage.getErrorMessage();
+        String expected = DataLoader.loadProperty("empty_password_error");
+        if(expected == null) {
+            Log.getInstance().error("Could not complete the test, expected value is null" + " testLoginPassingOnlyUsername");
+            return;
+        }
+        assertThat(actual, equalToIgnoringCase(expected));
+    }
+    @Test
+    void testLoginPassingValidCredentials() {
+        loginPage.enterLoginDetails(UserFactory.validUser());
+        SwagLabsPage shop = new SwagLabsPage(getDriver());
+        String actualDashboardTitle = shop.getDashboardTitle();
+        String actualPageTitle = shop.getPageTitle();
+        boolean isShopContent = shop.hasShopContent();
+        System.out.println(isShopContent);
+        System.out.println(actualPageTitle);
+        System.out.println(actualDashboardTitle);
+        String expected = DataLoader.loadProperty("swag_labs");
+        if(expected == null) {
+            Log.getInstance().error("Could not complete the test, expected value is null" + " testLoginPassingValidCredentials");
+            return;
+        }
+        assertThat(actualDashboardTitle, equalToIgnoringCase(expected));
+        assertThat(actualDashboardTitle, equalToIgnoringCase(expected));
+        assertThat(isShopContent, is(true));
 
+    }
 }
