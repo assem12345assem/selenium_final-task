@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class SwagLabsPage {
-    private WebDriver driver;
+    private final WebDriver driver;
     @FindBy(xpath = "//*[@class='header_label']/div[@class='app_logo']")
     private WebElement swagLabsDiv;
     @FindBy(xpath = "//*[@id='inventory_container']")
