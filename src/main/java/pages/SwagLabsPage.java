@@ -6,12 +6,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class SwagLabsPage {
+    private WebDriver driver;
     @FindBy(xpath = "//*[@class='header_label']/div[@class='app_logo']")
     private WebElement swagLabsDiv;
     @FindBy(xpath = "//*[@id='inventory_container']")
     private WebElement inventoryContainer;
 
     public SwagLabsPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
     public String getDashboardTitle() {
@@ -21,6 +23,6 @@ public class SwagLabsPage {
         return inventoryContainer != null;
     }
     public String getPageTitle() {
-        return this.getPageTitle();
+        return driver.getTitle();
     }
 }

@@ -3,6 +3,7 @@ package selenium;
 import driver.Browser;
 import driver.DriverManager;
 import model.UserFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,8 +33,8 @@ class LoginTests {
         getDriver().manage().window().maximize();
         loginPage = new LoginPage(getDriver());
     }
-    @AfterEach
-    public void quit() {
+    @AfterAll
+    public static void quit() {
         DriverManager.quitDriver();
     }
     @Test
@@ -65,17 +66,13 @@ class LoginTests {
         String actualDashboardTitle = shop.getDashboardTitle();
         String actualPageTitle = shop.getPageTitle();
         boolean isShopContent = shop.hasShopContent();
-        System.out.println(isShopContent);
-        System.out.println(actualPageTitle);
-        System.out.println(actualDashboardTitle);
         String expected = DataLoader.loadProperty("swag_labs");
         if(expected == null) {
             Log.getInstance().error("Could not complete the test, expected value is null" + " testLoginPassingValidCredentials");
             return;
         }
         assertThat(actualDashboardTitle, equalToIgnoringCase(expected));
-        assertThat(actualDashboardTitle, equalToIgnoringCase(expected));
+        assertThat(actualPageTitle, equalToIgnoringCase(expected));
         assertThat(isShopContent, is(true));
-
     }
 }
