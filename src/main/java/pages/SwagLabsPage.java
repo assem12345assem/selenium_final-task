@@ -1,0 +1,17 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class SwagLabsPage {
+    @FindBy(xpath = "//*[@class='header_label']/div[@class='app_logo']")
+    private WebElement swagLabsDiv;
+    @FindBy(xpath = "//*[@id='inventory_container']")
+    private WebElement inventoryContainer;
+
+    public SwagLabsPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
+}
