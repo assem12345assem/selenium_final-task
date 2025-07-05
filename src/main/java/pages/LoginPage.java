@@ -1,24 +1,29 @@
 package pages;
 
+import java.time.Duration;
 import model.User;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DataLoader;
 import utils.Log;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
     @FindBy(xpath = "//*[@id='user-name']")
     private WebElement username;
     @FindBy(xpath = "//*[@id='password']")
     private WebElement password;
     @FindBy(xpath = "//*[@id='login-button']")
     private WebElement submitButton;
-    @FindBy(xpath = "//*[@data-test='error']")
+    @FindBy(xpath = "//h3[@data-test='error']")
     private WebElement errorMessage;
     public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
     public void enterLoginDetails(User user) {
         enterUsername(user.getUsername());
@@ -31,8 +36,10 @@ public class LoginPage {
         submitButton.click();
     }
     public String getErrorMessage() {
-        if(errorMessage == null) {
-            Log.getInstance().error("could not locate error message web element");
+        try {
+            waitForVisibility(errorMessage);
+        } catch (TimeoutException e) {
+            Log.getInstance().error("Could not locate error message web element within 5 seconds");
             return DataLoader.loadProperty("default_error_message") + " error message";
         }
         return errorMessage.getText();

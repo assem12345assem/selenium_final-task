@@ -3,10 +3,10 @@ package selenium;
 import driver.Browser;
 import driver.DriverManager;
 import model.UserFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.SwagLabsPage;
 import utils.DataLoader;
@@ -16,6 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.hamcrest.Matchers.is;
 
+@Test(groups = "regression")
 class LoginTests {
     private static final ThreadLocal<WebDriver> driver;
     private LoginPage loginPage;
@@ -41,7 +42,7 @@ class LoginTests {
         loginPage = new LoginPage(getDriver());
     }
 
-    @AfterAll
+    @AfterClass
     public static void quit() {
         DriverManager.quitDriver();
     }

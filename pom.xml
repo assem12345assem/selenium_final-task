@@ -80,6 +80,12 @@
             <artifactId>cucumber-testng</artifactId>
             <version>7.21.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.11.0</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>
