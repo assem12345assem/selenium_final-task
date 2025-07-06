@@ -11,6 +11,7 @@ import static org.testng.Assert.*;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.CartPage;
@@ -18,7 +19,9 @@ import pages.LoginPage;
 import pages.SwagLabsPage;
 import utils.DataLoader;
 import utils.Log;
+import utils.ScreenshotListener;
 
+@Listeners(ScreenshotListener.class)
 @Test(groups = "smoke")
 public class SwagLabsTests {
 

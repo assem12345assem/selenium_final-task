@@ -36,3 +36,4 @@ build/
 
 ### Slf4j ###
 /logs/
+/output/

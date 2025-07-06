@@ -3,6 +3,7 @@ package pages;
 import java.time.Duration;
 import model.User;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,8 +54,10 @@ public class LoginPage extends BasePage{
             Log.getInstance().error("could not locate username web element");
             return;
         }
+        username.clear();
         username.sendKeys(data);
     }
+
     private void enterPassword(String data) {
         if(data == null) {
             Log.getInstance().warn("enterPassword: entered password is null");
